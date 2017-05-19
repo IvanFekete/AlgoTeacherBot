@@ -16,8 +16,13 @@ def handle_help(message) :
 
 @bot.message_handler(commands=[s[1:] for s in config.categoriesList])
 def hanndle_category(message) :
-    print(message.chat.id, "command : category")
-    bot.send_message(chat_id = message.chat.id, text = "Select an algorithms that you need :\n",  reply_markup = config.categoriesInlineKeyboardMarkgrup[message.text])
+    print(message.chat.id, "command : category", "text : %s" % message.text)
+
+    keyboard = config.categoriesInlineKeyboardMarkup[message.text]
+    bot.send_message(chat_id = message.chat.id, text = "Select an algorithms that you need :\n",  reply_markup = keyboard)
 
 
-bot.polling()
+
+
+if __name__ == "__main__" :
+    bot.polling()

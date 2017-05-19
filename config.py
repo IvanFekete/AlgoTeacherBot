@@ -1,11 +1,17 @@
+import os
 from telebot import types
 TOKEN = "397605652:AAEvceq-GSOpiiAH6yu3fGqkYO4qQiZWGJg"
 
 categoriesList = ["/sorting", "/searching"]
-categoriesInlineKeyboardMarkgrup = {
-    "/sorting" : types.InlineKeyboardMarkup([types.InlineKeyboardButton(text = "Bubble Sort", callback_data = "/bubblesort")])
-}
 
+def formSortingButton() :
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(types.InlineKeyboardButton(text = "Bubble Sort", callback_data = "/bubblesort"))
+    return keyboard
+
+categoriesInlineKeyboardMarkup = {
+    "/sorting" : formSortingButton()
+}
 
 
 
