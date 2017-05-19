@@ -18,32 +18,45 @@ algoStructure = {
     "String Algorithms" : ['Knuth-Morris-Pratt', 'Z Algorithm']
 }
 
-categoriesList = ["/sorting", "/searching", "/string", "/recursion"]
+categoriesList = ["/sorting", "/searching", "/string", "/recursion", "/miscellaneous", "/math", "/greedy",
+                  "/graphs", "/geometry", "/dp", "/datastruct", "/compression"]
 
 nameByCategory = {
     "/sorting" : "Sorting Algorithms",
-    "/searching" : "Searching Algorithms"
+    "/searching" : "Searching Algorithms",
+    "/string" : "String Algorithms",
+    "/recursion" : "Recursion, Backtracking etc",
+    "/miscellaneous" : "Miscellaneous",
+    "/math" : "Mathematical Algorithms",
+    "/greedy" : "Greedy Algorithms",
+    "/graphs" : "Graph Algorithms",
+    "/geometry" : "Geometric Algorithms",
+    "/dp" : "Dynamic Programming",
+    "/datastruct" : "Data Structures",
+    "/compression" : "Compression Algorithms"
 }
 
 
 def formButton(category) :
     keyboard = types.InlineKeyboardMarkup()
     for algorithm in algoStructure[nameByCategory[category]] :
-        keyboard.add(types.InlineKeyboardButton(text = algorithm, callback_data = algorithm))
+        keyboard.add(types.InlineKeyboardButton(text = algorithm, callback_data = category + "/" + algorithm))
     return keyboard
 
 categoriesInlineKeyboardMarkup = {
-    "/sorting" : formButton("/sorting")
+    category : formButton(category) for category in categoriesList
 }
+
+listOfCategoriesForShow = ["%s - %s" % (item[0], item[1]) for item in sorted(nameByCategory.items())]
 
 startMessage = """ Hi, I'm a AlgoTeacher bot. I will help you to know something about the most common algorithms. 
 Please enter a name of an  algorithm or choose the category from this list :
 %s
-""" % ',\n'.join(categoriesList)
+""" % ',\n'.join(listOfCategoriesForShow)
 
 helpMessage = """ This bot can help you to know something about the most common algorithms. 
 /start - start to work with me
 /help - get a help information about me
 Commands for categories :
 %s
-""" % ',\n'.join(categoriesList)
+""" % ',\n'.join(listOfCategoriesForShow)
