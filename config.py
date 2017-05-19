@@ -37,11 +37,14 @@ nameByCategory = {
 }
 
 
+
 def formButton(category) :
     keyboard = types.InlineKeyboardMarkup()
     for algorithm in algoStructure[nameByCategory[category]] :
-        keyboard.add(types.InlineKeyboardButton(text = algorithm, callback_data = category + "/" + algorithm))
+        keyboard.add(types.InlineKeyboardButton(text = algorithm, callback_data = nameByCategory[category] + "/" + algorithm))
     return keyboard
+
+
 
 categoriesInlineKeyboardMarkup = {
     category : formButton(category) for category in categoriesList
