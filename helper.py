@@ -39,9 +39,15 @@ def parseCommand(text) :
         else :
             i += 1
 
+def have(text, pattern) :
+    return text.find(pattern) != -1
 
 def aboutAlgorithms(text) :
-    return text.replace("algorithm", "-123azaz") != text or text.replace("data struct", "-123azaz") != text
+    text = text.lower()
+    result = have(text, "algorithm") or have(text, "data struct")
+    if have(text, "method") and(have(text, "program") or have(text, "comp")) :
+        result = True
+    return result
 
 def prepareWikiInfo(wikiInfo) :
     info = """
@@ -65,7 +71,8 @@ def searchInfo(text) :
     print("searching : ",text)
     wikiInfo = getWikiInfo(text)
     pprint(wikiInfo)
+    result = []
     for record in wikiInfo :
         if aboutAlgorithms(record[2]) :
-           return record
-    return []
+           result.append(record)
+    return result

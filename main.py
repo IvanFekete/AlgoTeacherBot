@@ -31,7 +31,11 @@ def handle_callback_query(call) :
     implementationLink = helper.formatLink("https://github.com/PetarV-/Algorithms/tree/master/%s" % (directory + ".cpp"))
     wikiInfo = helper.getWikiInfo(algorithmName)
     print(wikiInfo)
-    info = helper.prepareWikiInfo(wikiInfo[0])
+    info = ""
+    try :
+        info = helper.prepareWikiInfo(wikiInfo[0])
+    except :
+        info  = ""
     messageText = """ %s : %s
     %s
     Implementation : %s
@@ -41,7 +45,7 @@ def handle_callback_query(call) :
 
 @bot.message_handler(func = lambda message : True)
 def searchByText(message) :
-    messageText = helper.prepareWikiInfo(helper.searchInfo(message.text))
+    messageText = "\n".join([helper.prepareWikiInfo(record) for record in helper.searchInfo(message.text)])
     if messageText == "" :
         messageText = "Cannot find algorithm or data structure that you want."
     bot.send_message(chat_id = message.chat.id, text = messageText)

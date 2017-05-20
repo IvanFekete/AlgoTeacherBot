@@ -52,12 +52,12 @@ categoriesInlineKeyboardMarkup = {
 
 listOfCategoriesForShow = ["%s - %s" % (item[0], item[1]) for item in sorted(nameByCategory.items())]
 
-startMessage = """ Hi, I'm a AlgoTeacher bot. I will help you to know something about the most common algorithms. 
-Please enter a name of an  algorithm or choose the category from this list :
+startMessage = """ Hi, I'm a AlgoTeacher bot. I will help you to find out something new about the most common algorithms. 
+Please enter a name of an algorithm or choose the category from this list :
 %s
 """ % ',\n'.join(listOfCategoriesForShow)
 
-helpMessage = """ This bot can help you to know something about the most common algorithms. 
+helpMessage = """ This bot can help you to find out something new about the most common algorithms. 
 /start - start to work with me
 /help - get a help information about me
 Commands for categories :
