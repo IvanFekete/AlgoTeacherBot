@@ -17,8 +17,8 @@ def handle_help(message) :
 @bot.message_handler(commands=[s[1:] for s in config.categoriesList])
 def handle_category(message) :
     print(message.chat.id, "command : category", "text : %s" % message.text)
-
-    keyboard = config.categoriesInlineKeyboardMarkup[message.text]
+    command = helper.parseCommand(message.text)
+    keyboard = config.categoriesInlineKeyboardMarkup[command]
     bot.send_message(chat_id = message.chat.id, text = "Select an algorithms that you need :\n",  reply_markup = keyboard)
 
 
