@@ -67,8 +67,23 @@ def prepareWikiInfo(wikiInfo) :
     print(info)
     return info
 
+def isWord(token) :
+    for c in token :
+        if not isLetter(c) :
+            return False
+    return True
+
+def splitIntoWords(text) :
+    tokens = text.split()
+    words = []
+    for token in tokens :
+        if isWord(token) :
+            words.append(token)
+    return words
+
 def searchInfo(text) :
     print("searching : ",text)
+
     wikiInfo = getWikiInfo(text)
     pprint(wikiInfo)
     result = []
@@ -76,3 +91,17 @@ def searchInfo(text) :
         if aboutAlgorithms(record[2]) :
            result.append(record)
     return result
+
+
+def searchInfoBetter(text) :
+    words = splitIntoWords(text)
+    results = []
+    for mask in range(1, 1 << len(words)) :
+        bit = lambda x, i : (x >> i) & 1
+        text = []
+        cost = 0
+        for i in range(0, len(words)) :
+            if bit(mask, i) == 1 :
+                text.append(words[i])
+                cost += len(words[i]) ** 2
+        results.append([cost, searchInfo(' '.join(text))])
