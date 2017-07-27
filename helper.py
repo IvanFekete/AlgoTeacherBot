@@ -96,12 +96,15 @@ def searchInfo(text) :
 def searchInfoBetter(text) :
     words = splitIntoWords(text)
     results = []
+    bit = lambda x, i: (x >> i) % 2
     for mask in range(1, 1 << len(words)) :
-        bit = lambda x, i : (x >> i) & 1
         text = []
         cost = 0
         for i in range(0, len(words)) :
             if bit(mask, i) == 1 :
                 text.append(words[i])
                 cost += len(words[i]) ** 2
-        results.append([cost, searchInfo(' '.join(text))])
+        info = searchInfo(' '.join(text))
+        if info != [] :
+            results.append([cost, info])
+    return max(results)[1] if results != [] else []
